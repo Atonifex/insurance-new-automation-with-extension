@@ -2,59 +2,27 @@
 // Shared Types for Chrome Extension
 // These mirror the web-app types for consistency
 // ============================================
-//*********NOTE on 12/5/2025 @ 4:13 pm: SHOULDN'T THESE JUST BE IMPORTED FROM THE WEB-APP 
-// LIB/TYPES.TS?
-// DO THIS!!! ***************************************************
+// Imports shared types from web-app and adds extension-specific types
 
-export type CarrierPlatform = 'iPipeline' | 'Americo' | 'Transamerica' | 'Test';
+// Re-export shared types from web-app for convenience
+export type {
+  CaseCarrierStatus,
+  SmokerStatus,
+  Client,
+  Case,
+  CaseCarrier,
+  CaseWithCarriers,
+  CaseAuditAction,
+  CaseAuditLog,
+  CreateCaseRequest,
+  UpdateCaseStatusRequest,
+} from '../../../lib/types';
 
-export type CaseCarrierStatus =
-  | 'not_started'
-  | 'in_progress'
-  | 'waiting_mfa'
-  | 'error'
-  | 'completed';
+// Import the base CarrierPlatform to extend it
+import type { CarrierPlatform as BaseCarrierPlatform } from '../../../lib/types';
 
-export type SmokerStatus = 'smoker' | 'non-smoker';
-
-export interface Client {
-  id: string;
-  agentId: string;
-  firstName: string;
-  middleInitial?: string;
-  lastName: string;
-  dateOfBirth: string;
-  ssnLast4?: string;
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  phone?: string;
-  email?: string;
-  smokerStatus: SmokerStatus;
-}
-
-export interface CaseCarrier {
-  id: string;
-  caseId: string;
-  carrierPlatform: CarrierPlatform;
-  carrierName: string;
-  status: CaseCarrierStatus;
-  lastStatusMessage?: string;
-  lastPageIdentifier?: string;
-}
-
-export interface CaseWithCarriers {
-  id: string;
-  agentId: string;
-  clientId: string;
-  client: Client;
-  coverageAmount: number;
-  termLengthYears: number;
-  carriers: CaseCarrier[];
-  createdAt: string;
-  updatedAt: string;
-}
+// Extend CarrierPlatform with 'Test' for local development testing
+export type CarrierPlatform = BaseCarrierPlatform | 'Test';
 
 // ============================================
 // Extension-specific types
@@ -64,7 +32,7 @@ export type AutofillState = 'idle' | 'running' | 'paused' | 'error' | 'completed
 
 export interface ExtensionState {
   currentCaseId: string | null;
-  currentCase: CaseWithCarriers | null;
+  currentCase: import('../../../lib/types').CaseWithCarriers | null;
   autofillState: AutofillState;
   currentHost: string | null;
   detectedCarrier: CarrierPlatform | null;
@@ -90,7 +58,7 @@ export interface ExtensionMessage {
 }
 
 export interface StartAutofillPayload {
-  caseData: CaseWithCarriers;
+  caseData: import('../../../lib/types').CaseWithCarriers;
 }
 
 export interface StateUpdatePayload {
@@ -128,4 +96,3 @@ export interface CarrierMapping {
   hostPattern: string;
   pages: PageMapping[];
 }
-
