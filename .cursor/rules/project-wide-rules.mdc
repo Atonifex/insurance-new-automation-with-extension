@@ -1,0 +1,9 @@
+---
+alwaysApply: true
+---
+
+Always reference the web-app/lib/types.ts to ensure that the types created are compatible with existing types. Never create new data types if there are existing data types that can be used. 
+
+Use Tailwind styling following conventions in web-app/app/globals.css.
+
+When suggesting terminal commands, only use Windows & PowerShell commands - not Unix. 

@@ -13,7 +13,7 @@ export default function Header({ userEmail, onLogout }: HeaderProps) {
 
   const navLinks = [
     { href: '/cases', label: 'Cases' },
-    { href: '/cases/new', label: 'New Case' },
+    { href: '/cases/new-case', label: 'New Case' },
   ];
 
   return (

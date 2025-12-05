@@ -70,7 +70,7 @@ export default function CasesListPage() {
             </p>
           </div>
           <Link
-            href="/cases/new"
+            href="/cases/new-case"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] text-white rounded-xl font-medium hover:opacity-90 transition-opacity"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,7 +95,7 @@ export default function CasesListPage() {
               Create your first case to start autofilling insurance applications.
             </p>
             <Link
-              href="/cases/new"
+              href="/cases/new-case"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--primary)] text-white rounded-xl font-medium hover:bg-[var(--primary-light)] transition-colors"
             >
               Create Your First Case

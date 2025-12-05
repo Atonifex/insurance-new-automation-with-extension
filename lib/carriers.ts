@@ -41,7 +41,7 @@ export const CARRIER_CONFIGS: Record<CarrierPlatform, CarrierConfig> = {
   }
 };
 
-export const ALL_CARRIERS: CarrierPlatform[] = ['iPipeline', 'Americo'];
+export const ALL_CARRIERS: CarrierPlatform[] = ['iPipeline', 'Americo', 'Transamerica'];
 
 export function getCarrierByHost(hostname: string): CarrierConfig | null {
   for (const config of Object.values(CARRIER_CONFIGS)) {
