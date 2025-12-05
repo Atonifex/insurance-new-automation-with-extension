@@ -301,7 +301,7 @@ export const CARRIER_MAPPINGS: Record<CarrierPlatform, CarrierMapping> = {
              inputType: 'select',
           },*/
         ],
-        nextButtonSelector: "button:has-text('Next'), input[type='submit']",
+        nextButtonSelector: "button[type='submit'], input[type='submit'], button:contains('Next')",
       },
       // TODO: Add more pages as we discover the form flow
       // The quote flow likely continues with personal info pages

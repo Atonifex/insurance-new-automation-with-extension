@@ -20,6 +20,37 @@ async function apiRequest<T>(
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> {
   try {
+    // In content scripts, route through background to avoid CORS
+    // Background script has host_permissions and can make cross-origin requests
+    if (typeof chrome !== 'undefined' && chrome.runtime) {
+      try {
+        const response = await chrome.runtime.sendMessage({
+          type: 'API_REQUEST',
+          payload: {
+            url: `${API_BASE_URL}${endpoint}`,
+            options: {
+              method: options.method || 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                ...options.headers,
+              },
+              body: options.body,
+            },
+          },
+        });
+
+        if (response.error) {
+          return { error: response.error };
+        }
+
+        return { data: response.data };
+      } catch (msgError) {
+        // Fallback to direct fetch if background script isn't available
+        console.warn('[API] Background script unavailable, using direct fetch');
+      }
+    }
+
+    // Direct fetch (works in popup/background contexts)
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       ...options,
       credentials: 'include', // Include cookies for auth

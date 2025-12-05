@@ -50,7 +50,8 @@ export type MessageType =
   | 'MFA_DETECTED'
   | 'PAGE_COMPLETED'
   | 'AUTOFILL_ERROR'
-  | 'AUTOFILL_COMPLETE';
+  | 'AUTOFILL_COMPLETE'
+  | 'API_REQUEST';
 
 export interface ExtensionMessage {
   type: MessageType;

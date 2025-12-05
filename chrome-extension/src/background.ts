@@ -73,6 +73,13 @@ chrome.runtime.onMessage.addListener(
         sendResponse({ state: extensionState });
         break;
 
+      case 'API_REQUEST':
+        // Proxy API requests from content scripts to avoid CORS
+        handleApiRequest(message.payload as { url: string; options: RequestInit })
+          .then((result) => sendResponse(result))
+          .catch((error) => sendResponse({ error: error.message }));
+        return true; // Keep channel open for async
+
       default:
         sendResponse({ error: 'Unknown message type' });
     }
@@ -80,6 +87,29 @@ chrome.runtime.onMessage.addListener(
     return true;
   }
 );
+
+// ============================================
+// API Request Handler
+// ============================================
+
+async function handleApiRequest(payload: { url: string; options: RequestInit }): Promise<{ data?: unknown; error?: string }> {
+  try {
+    const response = await fetch(payload.url, {
+      ...payload.options,
+      credentials: 'include',
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { error: data.error || `HTTP ${response.status}` };
+    }
+
+    return { data };
+  } catch (error) {
+    return { error: error instanceof Error ? error.message : 'Network error' };
+  }
+}
 
 // ============================================
 // Tab Events

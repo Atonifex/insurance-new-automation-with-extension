@@ -229,12 +229,30 @@ export function detectMFA(mfaIndicators?: string[]): boolean {
 }
 
 /**
- * Click a button by selector
+ * Click a button by selector or text content
  */
 export function clickButton(selector: string): boolean {
   const selectors = selector.split(',').map((s) => s.trim());
 
   for (const sel of selectors) {
+    // Handle text-based matching (e.g., "button:contains('Next')")
+    if (sel.includes(':contains(')) {
+      const match = sel.match(/^([^:]+):contains\(['"]([^'"]+)['"]\)$/);
+      if (match) {
+        const [, baseSelector, text] = match;
+        const elements = document.querySelectorAll<HTMLElement>(baseSelector);
+        for (const el of elements) {
+          if (el.textContent?.includes(text) && !el.hasAttribute('disabled')) {
+            el.click();
+            console.log('[Autofill] Clicked button by text:', text);
+            return true;
+          }
+        }
+      }
+      continue;
+    }
+
+    // Standard CSS selector
     const button = document.querySelector<HTMLElement>(sel);
     if (button && !button.hasAttribute('disabled')) {
       button.click();
