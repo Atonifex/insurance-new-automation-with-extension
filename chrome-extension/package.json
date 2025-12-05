@@ -1,0 +1,17 @@
+{
+  "name": "insurance-autofill-extension",
+  "version": "0.1.0",
+  "description": "Autofills life insurance applications from centralized client data",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node build.js --watch",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.268",
+    "esbuild": "^0.20.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.0"
+  }
+}

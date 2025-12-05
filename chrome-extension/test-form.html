@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Insurance Form - Autofill Testing</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 40px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 32px;
+    }
+    h1 {
+      color: #1e3a5f;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: #333;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #0d9488;
+    }
+    input.filled {
+      background: #d1fae5;
+      border-color: #059669;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .row-3 {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 16px;
+    }
+    button {
+      background: #1e3a5f;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 16px;
+    }
+    button:hover {
+      background: #2d5a87;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e3a5f;
+      margin: 32px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    .info-box {
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    .info-box h3 {
+      color: #166534;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .info-box p {
+      color: #166534;
+      font-size: 13px;
+    }
+    .page-indicator {
+      background: #1e3a5f;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <span class="page-indicator">Page 1 of 3 - Applicant Info</span>
+    <h1>Life Insurance Application</h1>
+    <p class="subtitle">Test form for Insurance Autofill Extension</p>
+
+    <div class="info-box">
+      <h3>🧪 Testing Instructions</h3>
+      <p>Open this file in Chrome, then use the PolyFill Agent extension to autofill. The extension will fill fields and highlight them in green.</p>
+    </div>
+
+    <form id="testForm">
+      <h2 class="section-title">Personal Information</h2>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="applicantFirstName" placeholder="John">
+        </div>
+        <div class="form-group">
+          <label for="middleInitial">Middle Initial</label>
+          <input type="text" id="middleInitial" name="applicantMiddleInitial" placeholder="M" maxlength="1">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="applicantLastName" placeholder="Smith">
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="text" id="dob" name="applicantDOB" placeholder="MM/DD/YYYY">
+        </div>
+        <div class="form-group">
+          <label for="ssn">SSN (Last 4)</label>
+          <input type="text" id="ssn" name="ssnLast4" placeholder="1234" maxlength="4">
+        </div>
+      </div>
+
+      <h2 class="section-title">Contact Information</h2>
+
+      <div class="form-group">
+        <label for="address">Street Address</label>
+        <input type="text" id="address" name="streetAddress" placeholder="123 Main St">
+      </div>
+
+      <div class="row-3">
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" id="city" name="city" placeholder="Columbia">
+        </div>
+        <div class="form-group">
+          <label for="state">State</label>
+          <select id="state" name="state">
+            <option value="">Select...</option>
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="NC">North Carolina</option>
+            <option value="SC">South Carolina</option>
+            <option value="TX">Texas</option>
+            <!-- Add more states as needed -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="zip">ZIP Code</label>
+          <input type="text" id="zip" name="zipCode" placeholder="29201" maxlength="5">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="applicantPhone" placeholder="(803) 555-0123">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="applicantEmail" placeholder="john@example.com">
+        </div>
+      </div>
+
+      <h2 class="section-title">Health Information</h2>
+
+      <div class="form-group">
+        <label>Tobacco Use in Last 12 Months</label>
+        <div style="display: flex; gap: 16px; margin-top: 8px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;">
+            <input type="radio" name="tobaccoUse" value="yes"> Yes
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;">
+            <input type="radio" name="tobaccoUse" value="no"> No
+          </label>
+        </div>
+      </div>
+
+      <button type="button" id="nextBtn" onclick="handleNext()">Continue to Next Page →</button>
+    </form>
+  </div>
+
+  <script>
+    // Highlight fields when they're filled
+    document.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', () => {
+        if (el.value) {
+          el.classList.add('filled');
+        } else {
+          el.classList.remove('filled');
+        }
+      });
+      el.addEventListener('change', () => {
+        if (el.value) {
+          el.classList.add('filled');
+        } else {
+          el.classList.remove('filled');
+        }
+      });
+    });
+
+    function handleNext() {
+      // Collect form data
+      const form = document.getElementById('testForm');
+      const formData = new FormData(form);
+      const data = {};
+      for (let [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+      
+      console.log('[Test Form] Form data:', data);
+      alert('Form submitted! Check console for data.\n\nIn a real portal, this would navigate to the next page.');
+    }
+
+    console.log('[Test Form] Test form loaded. Ready for autofill testing.');
+  </script>
+</body>
+</html>
+

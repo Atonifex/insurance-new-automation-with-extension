@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Insurance Autofill Agent",
+  "version": "0.1.0",
+  "description": "Autofills life insurance applications from centralized client data. Part of the PolyFill Agent system.",
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.ipipeline.com/*",
+    "https://*.americo.com/*",
+    "http://localhost:3000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Insurance Autofill Agent",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.ipipeline.com/*",
+        "https://*.americo.com/*",
+        "file:///*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

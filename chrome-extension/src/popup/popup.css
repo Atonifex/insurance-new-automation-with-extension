@@ -1,0 +1,372 @@
+/* ============================================
+   Popup Styles - Insurance Autofill Agent
+   ============================================ */
+
+:root {
+  --primary: #1e3a5f;
+  --primary-light: #2d5a87;
+  --accent: #0d9488;
+  --accent-light: #14b8a6;
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 360px;
+  min-height: 400px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  padding: 16px;
+  color: white;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Sections */
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+/* Site Info */
+.site-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.host-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+.carrier-badge {
+  padding: 4px 10px;
+  background: var(--accent);
+  color: white;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.carrier-badge.hidden {
+  display: none;
+}
+
+/* Auth Status */
+.auth-section {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.auth-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.auth-status.authenticated .status-dot {
+  background: var(--success);
+}
+
+.auth-status.not-authenticated .status-dot {
+  background: var(--error);
+}
+
+/* Case Input */
+.case-input-group {
+  display: flex;
+  gap: 8px;
+}
+
+.case-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.case-input:focus {
+  border-color: var(--accent);
+}
+
+/* Case Card */
+.case-card {
+  background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 100%);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.case-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.client-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.status-badge {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.not_started {
+  background: var(--border);
+  color: var(--text-muted);
+}
+
+.status-badge.in_progress {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-badge.waiting_mfa {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.status-badge.error {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.status-badge.completed {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.case-meta {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Status Messages */
+.status-message {
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.status-message.info {
+  background: #dbeafe;
+  color: #1d4ed8;
+  border: 1px solid #93c5fd;
+}
+
+.status-message.warning {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+
+.status-message.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+.status-message.success {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--border);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #d1d5db;
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.btn-warning {
+  background: var(--warning);
+  color: white;
+}
+
+.btn-warning:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* Info Box */
+.info-box {
+  display: flex;
+  gap: 12px;
+  padding: 4px;
+  color: var(--text-secondary);
+}
+
+.info-box svg {
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+.info-title {
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.info-text {
+  font-size: 12px;
+}
+
+/* Footer */
+.footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+/* Utility */
+.hidden {
+  display: none !important;
+}
+
