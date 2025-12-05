@@ -6,7 +6,7 @@
 // LIB/TYPES.TS?
 // DO THIS!!! ***************************************************
 
-export type CarrierPlatform = 'iPipeline' | 'Americo';
+export type CarrierPlatform = 'iPipeline' | 'Americo' | 'Transamerica' | 'Test';
 
 export type CaseCarrierStatus =
   | 'not_started'

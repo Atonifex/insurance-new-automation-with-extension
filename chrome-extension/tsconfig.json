@@ -9,13 +9,16 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src",
     "declaration": false,
     "noEmit": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["../lib/*"]
+    }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../lib/**/*"],
   "exclude": ["node_modules", "dist"]
 }
 

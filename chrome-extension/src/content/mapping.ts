@@ -8,6 +8,73 @@
 import { CarrierMapping, CarrierPlatform } from '../types/models';
 
 export const CARRIER_MAPPINGS: Record<CarrierPlatform, CarrierMapping> = {
+  // Test carrier for local file:// testing
+  Test: {
+    platform: 'Test',
+    hostPattern: 'file://',
+    pages: [
+      {
+        id: 'test_form_page1',
+        urlPattern: 'test-form.html',
+        fields: [
+          {
+            caseField: 'client.firstName',
+            selectors: ["#firstName", "input[name='applicantFirstName']"],
+          },
+          {
+            caseField: 'client.middleInitial',
+            selectors: ["#middleInitial", "input[name='applicantMiddleInitial']"],
+          },
+          {
+            caseField: 'client.lastName',
+            selectors: ["#lastName", "input[name='applicantLastName']"],
+          },
+          {
+            caseField: 'client.dateOfBirth',
+            selectors: ["#dob", "input[name='applicantDOB']"],
+            transform: 'date_mmddyyyy',
+          },
+          {
+            caseField: 'client.ssnLast4',
+            selectors: ["#ssn", "input[name='ssnLast4']"],
+          },
+          {
+            caseField: 'client.address',
+            selectors: ["#address", "input[name='streetAddress']"],
+          },
+          {
+            caseField: 'client.city',
+            selectors: ["#city", "input[name='city']"],
+          },
+          {
+            caseField: 'client.state',
+            selectors: ["#state", "select[name='state']"],
+            inputType: 'select',
+          },
+          {
+            caseField: 'client.zipCode',
+            selectors: ["#zip", "input[name='zipCode']"],
+          },
+          {
+            caseField: 'client.phone',
+            selectors: ["#phone", "input[name='applicantPhone']"],
+            transform: 'phone',
+          },
+          {
+            caseField: 'client.email',
+            selectors: ["#email", "input[name='applicantEmail']"],
+          },
+          {
+            caseField: 'client.smokerStatus',
+            selectors: ["input[name='tobaccoUse']"],
+            inputType: 'radio',
+          },
+        ],
+        nextButtonSelector: "#nextBtn, button[type='submit']",
+      },
+    ],
+  },
+
   iPipeline: {
     platform: 'iPipeline',
     hostPattern: 'ipipeline.com',
@@ -208,14 +275,38 @@ export const CARRIER_MAPPINGS: Record<CarrierPlatform, CarrierMapping> = {
       },
     ],
   },
+
+  Transamerica: {
+    platform: 'Transamerica',
+    hostPattern: 'transamerica.com',
+    pages: [
+      {
+        id: 'applicant_basic_info',
+        urlPattern: 'applicantInfo',
+        fields: [
+          {
+            caseField: 'client.firstName',
+            selectors: [
+              "input[name='firstName']",
+            ],
+          },
+        ],
+      },
+    ],
+  }
 };
 
 /**
- * Get carrier mapping by hostname
+ * Get carrier mapping by hostname or protocol
  */
 export function getCarrierByHost(hostname: string): CarrierMapping | null {
+  // Check if we're on a file:// URL (for testing)
+  if (window.location.protocol === 'file:') {
+    return CARRIER_MAPPINGS.Test;
+  }
+  
   for (const mapping of Object.values(CARRIER_MAPPINGS)) {
-    if (hostname.includes(mapping.hostPattern)) {
+    if (mapping.platform !== 'Test' && hostname.includes(mapping.hostPattern)) {
       return mapping;
     }
   }

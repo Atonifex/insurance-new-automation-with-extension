@@ -49,9 +49,14 @@ const CARRIER_HOSTS: Record<string, CarrierPlatform> = {
   'americo.com': 'Americo',
 };
 
-function detectCarrier(hostname: string): CarrierPlatform | null {
+function detectCarrier(url: URL): CarrierPlatform | null {
+  // Support file:// URLs for local testing
+  if (url.protocol === 'file:') {
+    return 'Test';
+  }
+  
   for (const [pattern, carrier] of Object.entries(CARRIER_HOSTS)) {
-    if (hostname.includes(pattern)) {
+    if (url.hostname.includes(pattern)) {
       return carrier;
     }
   }
@@ -195,10 +200,10 @@ async function init() {
 
   try {
     const url = new URL(tab.url);
-    elements.hostName.textContent = url.hostname;
+    elements.hostName.textContent = url.protocol === 'file:' ? 'Local Test File' : url.hostname;
 
-    // Detect carrier
-    detectedCarrier = detectCarrier(url.hostname);
+    // Detect carrier (pass full URL for file:// detection)
+    detectedCarrier = detectCarrier(url);
 
     if (detectedCarrier) {
       elements.carrierBadge.textContent = detectedCarrier;

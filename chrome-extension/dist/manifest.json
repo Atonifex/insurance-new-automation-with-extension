@@ -27,7 +27,7 @@
         "https://*.americo.com/*",
         "file:///*"
       ],
-      "js": ["content.js"],
+      "js": ["content/content.js"],
       "run_at": "document_idle"
     }
   ]
