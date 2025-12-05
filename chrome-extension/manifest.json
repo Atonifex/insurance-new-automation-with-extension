@@ -11,6 +11,7 @@
   "host_permissions": [
     "https://*.ipipeline.com/*",
     "https://*.americo.com/*",
+    "https://*.transamerica.com/*",
     "http://localhost:3000/*"
   ],
   "background": {
@@ -25,6 +26,7 @@
       "matches": [
         "https://*.ipipeline.com/*",
         "https://*.americo.com/*",
+        "https://*.transamerica.com/*",
         "file:///*"
       ],
       "js": ["content/content.js"],

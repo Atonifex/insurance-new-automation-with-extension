@@ -49,6 +49,7 @@ export interface Case {
   agentId: string;
   clientId: string;
   client?: Client; // Populated on fetch
+  //productPlanType?: string;
   coverageAmount: number;
   termLengthYears: number;
   createdAt: string;

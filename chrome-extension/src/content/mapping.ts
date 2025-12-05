@@ -281,17 +281,30 @@ export const CARRIER_MAPPINGS: Record<CarrierPlatform, CarrierMapping> = {
     hostPattern: 'transamerica.com',
     pages: [
       {
-        id: 'applicant_basic_info',
-        urlPattern: 'applicantInfo',
+        id: 'get_quote_page',
+        urlPattern: 'lifepolicyexplorer/get-quote',
         fields: [
           {
-            caseField: 'client.firstName',
+            // Coverage amount is at the Case level, not Client
+            caseField: 'coverageAmount',
             selectors: [
-              "input[name='firstName']",
+              "#edit-your-coverage-amount-is-",
+              "input[name='your_coverage_amount_is_']",
             ],
           },
+          /* Note: Plan type dropdown - no matching field in our data model yet
+           Would need to add this to the Case type if needed
+           Not supre relevant here because it's just the productPlanType for this specific carrier - and it's pre-populated!
+          {
+             caseField: 'productPlanType',
+             selectors: ["#edit-your-plan-is-", "select[name='your_plan_is_']"],
+             inputType: 'select',
+          },*/
         ],
+        nextButtonSelector: "button:has-text('Next'), input[type='submit']",
       },
+      // TODO: Add more pages as we discover the form flow
+      // The quote flow likely continues with personal info pages
     ],
   }
 };

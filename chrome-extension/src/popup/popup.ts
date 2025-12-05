@@ -47,6 +47,7 @@ let isAuthenticated = false;
 const CARRIER_HOSTS: Record<string, CarrierPlatform> = {
   'ipipeline.com': 'iPipeline',
   'americo.com': 'Americo',
+  'transamerica.com': 'Transamerica',
 };
 
 function detectCarrier(url: URL): CarrierPlatform | null {
