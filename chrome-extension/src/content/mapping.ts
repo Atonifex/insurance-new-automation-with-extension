@@ -283,6 +283,10 @@ export const CARRIER_MAPPINGS: Record<CarrierPlatform, CarrierMapping> = {
       {
         id: 'get_quote_page_1',
         urlPattern: 'lifepolicyexplorer/get-quote',
+        domMarkers: [
+          "input[data-drupal-selector='edit-your-coverage-amount-is-']",
+          "select[data-drupal-selector='edit-your-plan-is-']",
+        ],
         fields: [
           {
             // Coverage amount is at the Case level, not Client
@@ -301,12 +305,16 @@ export const CARRIER_MAPPINGS: Record<CarrierPlatform, CarrierMapping> = {
              inputType: 'select',
           },*/
         ],
-        //button[type='submit'] will select ALL buttons with type='submit'
-        nextButtonSelector: "#edit-actions-wizard-next, button[type='submit'], button:contains('Next'), button[value='Next']", 
+        // Prefer explicit ID, then text match to avoid other submits
+        nextButtonSelector: "#edit-actions-wizard-next, button:contains('Next')", 
       },
       {
         id: 'personal_info_page_2',
         urlPattern: 'lifepolicyexplorer', // Matches any page in the quote flow
+        domMarkers: [
+          "select[data-drupal-selector='edit-where-do-you-live-']",
+          "input[data-drupal-selector='edit-zip-code']",
+        ],
         fields: [
           {
             caseField: 'client.state',
@@ -396,7 +404,7 @@ export const CARRIER_MAPPINGS: Record<CarrierPlatform, CarrierMapping> = {
             inputType: 'select',
           },
         ],
-        nextButtonSelector: "#edit-actions-wizard-next, button:contains('Next')",
+        nextButtonSelector: "#edit-actions-wizard-next-v-ds5vn9row, button:contains('Next')",
       },
     ],
   }

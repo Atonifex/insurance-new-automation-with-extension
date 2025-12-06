@@ -198,13 +198,25 @@ async function runAutofillLoop() {
 
     // Try to click next button
     if (currentPage.nextButtonSelector) {
-      await sleep(300);
+      await sleep(500);
       const clicked = clickButton(currentPage.nextButtonSelector);
 
       if (clicked) {
         // Wait for navigation or page update
         console.log('[Autofill] Clicked next, waiting for page change...');
-        await waitForPageChange();
+        const changed = await waitForPageChange();
+        if (!changed) {
+          console.log('[Autofill] Page did not change, pausing');
+          currentState = 'paused';
+          await updateStatus(
+            currentCaseData.id,
+            carrierMapping.platform,
+            'error',
+            currentPage.id,
+            'Navigation not detected after clicking Next'
+          );
+          return;
+        }
       } else {
         console.log('[Autofill] Could not click next button, pausing');
         currentState = 'paused';
@@ -234,7 +246,7 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function waitForPageChange(): Promise<void> {
+async function waitForPageChange(): Promise<boolean> {
   const currentUrl = window.location.href;
 
   // Wait for URL change or DOM change
@@ -249,7 +261,10 @@ async function waitForPageChange(): Promise<void> {
     // Wait for new page to be ready
     await waitFor(() => document.readyState === 'complete', 5000);
     await sleep(500); // Extra buffer for JS to initialize
+    return true;
   }
+
+  return false;
 }
 
 // ============================================
