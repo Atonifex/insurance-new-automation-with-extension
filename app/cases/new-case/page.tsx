@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
-import { CarrierPlatform, SmokerStatus, CreateCaseRequest } from '@/lib/types';
+import { CarrierPlatform, SmokerStatus, Gender, DrivingRecord, HealthStatus, TobaccoUse, CreateCaseRequest } from '@/lib/types';
 import { ALL_CARRIERS, CARRIER_CONFIGS } from '@/lib/carriers';
 
 // US States for dropdown
@@ -70,6 +70,13 @@ interface FormData {
   phone: string;
   email: string;
   smokerStatus: SmokerStatus;
+  gender: Gender | '';
+  weight: string;
+  heightFeet: string;
+  heightInches: string;
+  drivingRecord: DrivingRecord | '';
+  healthStatus: HealthStatus | '';
+  tobaccoUse: TobaccoUse | '';
   // Case info
   coverageAmount: number;
   termLengthYears: number;
@@ -89,6 +96,13 @@ const initialFormData: FormData = {
   phone: '',
   email: '',
   smokerStatus: 'non-smoker',
+  gender: '',
+  weight: '',
+  heightFeet: '',
+  heightInches: '',
+  drivingRecord: '',
+  healthStatus: '',
+  tobaccoUse: '',
   coverageAmount: 250000,
   termLengthYears: 20,
   selectedCarriers: [],
@@ -151,6 +165,13 @@ export default function NewCasePage() {
           phone: formData.phone || undefined,
           email: formData.email || undefined,
           smokerStatus: formData.smokerStatus,
+          gender: formData.gender || undefined,
+          weight: formData.weight ? parseInt(formData.weight, 10) : undefined,
+          heightFeet: formData.heightFeet ? parseInt(formData.heightFeet, 10) : undefined,
+          heightInches: formData.heightInches ? parseInt(formData.heightInches, 10) : undefined,
+          drivingRecord: formData.drivingRecord || undefined,
+          healthStatus: formData.healthStatus || undefined,
+          tobaccoUse: formData.tobaccoUse || undefined,
         },
         coverageAmount: formData.coverageAmount,
         termLengthYears: formData.termLengthYears,
@@ -485,14 +506,179 @@ export default function NewCasePage() {
             </div>
           </section>
 
-          {/* Carrier Selection Section */}
+          {/* Health & Physical Information Section */}
           <section className="bg-[var(--surface)] rounded-2xl border border-[var(--border)] p-6 sm:p-8 animate-fade-in stagger-2">
             <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-6 flex items-center gap-2">
               <span className="w-8 h-8 rounded-lg bg-[var(--accent)] text-white flex items-center justify-center text-sm font-bold">
                 3
               </span>
+              Health & Physical Information
+            </h2>
+
+            {/* Gender */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-3">
+                Gender
+              </label>
+              <div className="flex gap-4">
+                <label
+                  className={`flex-1 flex items-center justify-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                    formData.gender === 'M'
+                      ? 'border-[var(--accent)] bg-[var(--accent)]/5'
+                      : 'border-[var(--border)] hover:border-[var(--accent)]/50'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="M"
+                    checked={formData.gender === 'M'}
+                    onChange={handleInputChange}
+                    className="sr-only"
+                  />
+                  <span className="font-medium text-[var(--text-primary)]">Male</span>
+                </label>
+                <label
+                  className={`flex-1 flex items-center justify-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                    formData.gender === 'F'
+                      ? 'border-[var(--accent)] bg-[var(--accent)]/5'
+                      : 'border-[var(--border)] hover:border-[var(--accent)]/50'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="F"
+                    checked={formData.gender === 'F'}
+                    onChange={handleInputChange}
+                    className="sr-only"
+                  />
+                  <span className="font-medium text-[var(--text-primary)]">Female</span>
+                </label>
+              </div>
+            </div>
+
+            {/* Weight and Height */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+              <div>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
+                  Weight (lbs)
+                </label>
+                <input
+                  type="text"
+                  name="weight"
+                  value={formData.weight}
+                  onChange={handleInputChange}
+                  placeholder="150"
+                  maxLength={3}
+                  pattern="[0-9]*"
+                  className="w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text-primary)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
+                  Height (Feet)
+                </label>
+                <select
+                  name="heightFeet"
+                  value={formData.heightFeet}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text-primary)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 transition-colors"
+                >
+                  <option value="">Feet</option>
+                  {[3, 4, 5, 6, 7].map((feet) => (
+                    <option key={feet} value={feet}>
+                      {feet}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
+                  Height (Inches)
+                </label>
+                <select
+                  name="heightInches"
+                  value={formData.heightInches}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text-primary)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 transition-colors"
+                >
+                  <option value="">Inches</option>
+                  {Array.from({ length: 12 }, (_, i) => (
+                    <option key={i} value={i}>
+                      {i}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Health Status */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+              <div>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
+                  Driving Record
+                </label>
+                <select
+                  name="drivingRecord"
+                  value={formData.drivingRecord}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text-primary)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 transition-colors"
+                >
+                  <option value="">- Select -</option>
+                  <option value="EXCELLENT">Excellent</option>
+                  <option value="GOOD">Good</option>
+                  <option value="FAIR">Fair</option>
+                  <option value="POOR">Poor</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
+                  Health Status
+                </label>
+                <select
+                  name="healthStatus"
+                  value={formData.healthStatus}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text-primary)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 transition-colors"
+                >
+                  <option value="">- Select -</option>
+                  <option value="EXCELLENT">Excellent</option>
+                  <option value="VERY GOOD">Very Good</option>
+                  <option value="GOOD">Good</option>
+                  <option value="FAIR">Fair</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
+                  Tobacco Use
+                </label>
+                <select
+                  name="tobaccoUse"
+                  value={formData.tobaccoUse}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text-primary)] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 transition-colors"
+                >
+                  <option value="">- Select -</option>
+                  <option value="NEVER">Never Used</option>
+                  <option value="CURRENT">Currently Use</option>
+                  <option value="NONE 1YR">None for 1 year</option>
+                  <option value="NONE 2YR">None for 2 years</option>
+                  <option value="NONE 3YR">None for 3+ years</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          {/* Carrier Selection Section */}
+          <section className="bg-[var(--surface)] rounded-2xl border border-[var(--border)] p-6 sm:p-8 animate-fade-in stagger-3">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-6 flex items-center gap-2">
+              <span className="w-8 h-8 rounded-lg bg-[var(--accent)] text-white flex items-center justify-center text-sm font-bold">
+                4
+              </span>
               Select Carriers
             </h2>
+
             <p className="text-[var(--text-secondary)] text-sm mb-6">
               Choose which carrier applications to prepare. You can fill multiple applications simultaneously.
             </p>

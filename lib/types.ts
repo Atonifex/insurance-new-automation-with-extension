@@ -11,7 +11,17 @@ export type CaseCarrierStatus =
   | 'error'
   | 'completed';
 
+  //*******
+  //Slightly duplicative, but depends on teh format expected by the carrier. Think about this more.
 export type SmokerStatus = 'smoker' | 'non-smoker';
+//This TobaccoUse doesn't exactly mirror the text on the page - is that okay?
+export type TobaccoUse = 'NEVER' | 'CURRENT' | 'NONE 1YR' | 'NONE 2YR' | 'NONE 3YR';
+
+export type Gender = 'M' | 'F';
+
+export type DrivingRecord = 'EXCELLENT' | 'GOOD' | 'FAIR' | 'POOR';
+
+export type HealthStatus = 'EXCELLENT' | 'VERY GOOD' | 'GOOD' | 'FAIR';
 
 // ============================================
 // Core Domain Models
@@ -39,7 +49,14 @@ export interface Client {
   zipCode: string;
   phone?: string;
   email?: string;
-  smokerStatus: SmokerStatus;
+  smokerStatus?: SmokerStatus;
+  gender?: Gender;
+  weight?: number; // Weight in pounds
+  heightFeet?: number; // Height feet (3-7)
+  heightInches?: number; // Height inches (0-11)
+  drivingRecord?: DrivingRecord;
+  healthStatus?: HealthStatus;
+  tobaccoUse?: TobaccoUse; // More detailed than smokerStatus
   createdAt: string;
   updatedAt: string;
 }

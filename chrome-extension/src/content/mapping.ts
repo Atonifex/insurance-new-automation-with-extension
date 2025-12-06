@@ -281,7 +281,7 @@ export const CARRIER_MAPPINGS: Record<CarrierPlatform, CarrierMapping> = {
     hostPattern: 'transamerica.com',
     pages: [
       {
-        id: 'get_quote_page',
+        id: 'get_quote_page_1',
         urlPattern: 'lifepolicyexplorer/get-quote',
         fields: [
           {
@@ -301,10 +301,103 @@ export const CARRIER_MAPPINGS: Record<CarrierPlatform, CarrierMapping> = {
              inputType: 'select',
           },*/
         ],
-        nextButtonSelector: "button[type='submit'], input[type='submit'], button:contains('Next')",
+        //button[type='submit'] will select ALL buttons with type='submit'
+        nextButtonSelector: "#edit-actions-wizard-next, button[type='submit'], button:contains('Next'), button[value='Next']", 
       },
-      // TODO: Add more pages as we discover the form flow
-      // The quote flow likely continues with personal info pages
+      {
+        id: 'personal_info_page_2',
+        urlPattern: 'lifepolicyexplorer', // Matches any page in the quote flow
+        fields: [
+          {
+            caseField: 'client.state',
+            selectors: [
+              "#edit-where-do-you-live-",
+              "select[name='where_do_you_live_']",
+              "select[data-drupal-selector='edit-where-do-you-live-']",
+            ],
+            inputType: 'select',
+          },
+          {
+            caseField: 'client.zipCode',
+            selectors: [
+              "#edit-zip-code",
+              "input[name='zip_code']",
+              "input[data-drupal-selector='edit-zip-code']",
+            ],
+          },
+          {
+            caseField: 'client.gender',
+            selectors: [
+              "input[name='gender']",
+              "input[data-drupal-selector^='edit-gender']",
+            ],
+            inputType: 'radio',
+          },
+          {
+            caseField: 'client.dateOfBirth',
+            selectors: [
+              "#edit-date-of-birth",
+              "input[name='date_of_birth']",
+              "input[data-drupal-selector='edit-date-of-birth']",
+            ],
+            transform: 'date_yyyymmdd', // Date input expects YYYY-MM-DD
+          },
+          {
+            caseField: 'client.weight',
+            selectors: [
+              "#edit-weight",
+              "input[name='weight']",
+              "input[data-drupal-selector='edit-weight']",
+            ],
+          },
+          {
+            caseField: 'client.heightFeet',
+            selectors: [
+              "#edit-height-items-0-item-feet",
+              "select[name='height[items][0][_item_][feet]']",
+              "select[data-drupal-selector='edit-height-items-0-item-feet']",
+            ],
+            inputType: 'select',
+          },
+          {
+            caseField: 'client.heightInches',
+            selectors: [
+              "#edit-height-items-0-item-inches",
+              "select[name='height[items][0][_item_][inches]']",
+              "select[data-drupal-selector='edit-height-items-0-item-inches']",
+            ],
+            inputType: 'select',
+          },
+          {
+            caseField: 'client.drivingRecord',
+            selectors: [
+              "#edit-driving-record",
+              "select[name='driving_record']",
+              "select[data-drupal-selector='edit-driving-record']",
+            ],
+            inputType: 'select',
+          },
+          {
+            caseField: 'client.healthStatus',
+            selectors: [
+              "#edit-how-is-your-health-",
+              "select[name='how_is_your_health_']",
+              "select[data-drupal-selector='edit-how-is-your-health-']",
+            ],
+            inputType: 'select',
+          },
+          {
+            caseField: 'client.tobaccoUse',
+            selectors: [
+              "#edit-tobacco-use",
+              "select[name='tobacco_use']",
+              "select[data-drupal-selector='edit-tobacco-use']",
+            ],
+            inputType: 'select',
+          },
+        ],
+        nextButtonSelector: "#edit-actions-wizard-next, button:contains('Next')",
+      },
     ],
   }
 };
