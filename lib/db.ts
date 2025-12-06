@@ -45,6 +45,13 @@ function initializeDemoData() {
     phone: '803-555-0123',
     email: 'john.smith@email.com',
     smokerStatus: 'non-smoker',
+    gender: 'M',
+    weight: 180,
+    heightFeet: 5,
+    heightInches: 11,
+    drivingRecord: 'GOOD',
+    healthStatus: 'GOOD',
+    tobaccoUse: 'NONE 3YR',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
