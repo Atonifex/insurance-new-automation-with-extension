@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('demo@agency.com');
-  const [password, setPassword] = useState('demo123');
+  const [password, setPassword] = useState('mydadis6foot7lolz');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -159,7 +159,7 @@ export default function LoginPage() {
           <div className="mt-6 p-4 bg-[var(--border-light)] rounded-xl">
             <p className="text-xs text-[var(--text-muted)] text-center">
               <strong>Demo credentials:</strong><br />
-              demo@agency.com / demo123
+              demo@agency.com / mydadis6foot7lolz
             </p>
           </div>
         </div>

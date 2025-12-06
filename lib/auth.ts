@@ -14,7 +14,7 @@ const DEMO_USER: SessionUser = {
   lastName: 'Agent',
 };
 
-const DEMO_PASSWORD = 'demo123';
+const DEMO_PASSWORD = 'mydadis6foot7lolz';
 
 // In-memory session store (will reset on server restart)
 // TODO: Replace with proper session management (Supabase, JWT, etc.)
@@ -53,8 +53,10 @@ export const SESSION_COOKIE_NAME = 'polyfill_session';
 export function getSessionCookieOptions() {
   return {
     httpOnly: true,
+    // Allow cross-site requests from the extension (chrome-extension:// and https://transamerica.com)
+    // In production you should serve over HTTPS; for localhost dev we still set secure:false.
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax' as const,
+    sameSite: 'none' as const,
     path: '/',
     maxAge: 60 * 60 * 24 * 7, // 1 week
   };
